@@ -70,7 +70,8 @@ inoremap <C-U> <C-G>u<C-U>
 set mouse=a
 
 " plugin to easilly install plugins
-set sessionoptions-=options
+" Don't forget to run :Helptags
+" after adding one more plugin
 execute pathogen#infect()
 
 " Enable file type detection.
