@@ -1,0 +1,101 @@
+" Made depending on the example for a vimrc file.
+"
+" Author of an example:	Bram Moolenaar <Bram@vim.org>
+
+" Use Vim settings, rather than Vi settings (much better!).
+" This must be first, because it changes other options as a side effect.
+set nocompatible
+
+" set my favorite colorscheme
+colors koehler
+
+set backspace=indent,eol,start " allow backspacing over everything in insert mode
+set tabstop=4                  " A tab is 4 spaces
+set expandtab                  " Always uses spaces instead of tabs
+set softtabstop=4              " Insert 4 spaces when tab is pressed
+set shiftwidth=4               " An indent is 4 spaces
+set smarttab                   " Indent instead of tab at start of line
+set shiftround                 " Round spaces to nearest shiftwidth multiple
+set nojoinspaces               " Don't convert spaces to tabs
+set autoindent
+set history=50                 " keep 50 lines of command line history
+set nobackup                   " do not keep a backup file
+set ruler                      " show the cursor position all the time
+set showcmd                    " display incomplete commands
+set number                     " show line numbers
+set hidden                     " hides files instead of closing
+set wildmenu                   " Encganced <Tab> in command mode
+set ignorecase                 " ignore case while searching
+set smartcase                  " ignore case if search pattern is all lowercase, case-sensitive otherwise
+set autoread                   " automaticaly reread files change outside vim
+
+syntax on
+set incsearch		        " do incremental searching
+set hlsearch			    " highlight search results
+
+" use , for <Leader>
+let mapleader = ","
+
+" switch off highlighting with <Leader>/
+noremap <silent><Leader>/ :nohls<CR>
+" use ; instead of :
+noremap ; :
+
+" Don't use Ex mode, use Q for formatting
+map Q gq
+
+" Convinience
+" cmap :W :w
+" <F12> toggle paste
+set pastetoggle=<F12>
+
+" better navigating thought wraped lines
+nnoremap j gj
+nnoremap k gk
+
+" status line: we want it at all times -- white on gray, with ASCII code of the current letter
+set statusline=%<%f%h%m%r%=char=%b=0x%B\ \ %l,%c%V\ %P
+set laststatus=2
+set highlight+=s:MyStatusLineHighlight
+highlight MyStatusLineHighlight ctermbg=darkgray ctermfg=white
+
+" automatically reload vimrc when it's saved
+au BufWritePost .vimrc so ~/.vimrc
+
+" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
+" so that you can undo CTRL-U after inserting a line break.
+inoremap <C-U> <C-G>u<C-U>
+
+" enable mouse
+set mouse=a
+
+" plugin to easilly install plugins
+set sessionoptions-=options
+execute pathogen#infect()
+
+" Enable file type detection.
+" Use the default filetype settings, so that mail gets 'tw' set to 72,
+" 'cindent' is on in C files, etc.
+" Also load indent files, to automatically do language-dependent indenting.
+filetype plugin indent on
+filetype plugin on " enable plugins
+
+" Put these in an autocmd group, so that we can delete them easily.
+augroup vimrcEx
+au!
+
+" For all text files set 'textwidth' to 78 characters.
+autocmd FileType text setlocal textwidth=78
+
+" When editing a file, always jump to the last known cursor position.
+" Don't do it when the position is invalid or when inside an event handler
+" (happens when dropping a file on gvim).
+" Also don't do it when the mark is in the first line, that is the default
+" position when opening a file.
+autocmd BufReadPost *
+\ if line("'\"") > 1 && line("'\"") <= line("$") |
+\   exe "normal! g`\"" |
+\ endif
+
+augroup END
+
