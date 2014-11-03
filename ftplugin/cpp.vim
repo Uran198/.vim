@@ -31,6 +31,7 @@ set tags+=./tags
 " temporary for fast testing
 map <F5> :write <CR> :!make run <CR>
 
-inoremap {<CR> {<CR><C-O>"tdd<C-O>O}<ESC>"tPA
+" smart curly breckts inserting
+inoremap {<CR> {<ESC>mtA<CR>}<C-O>`t<Right><CR><End>
 
 
