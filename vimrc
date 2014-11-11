@@ -38,20 +38,26 @@ let mapleader = ","
 
 " switch off highlighting with <Leader>/
 noremap <silent><Leader>/ :nohls<CR>
+
 " use ; instead of :
 noremap ; :
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
 
-" Convinience
-" cmap :W :w
 " <F12> toggle paste
 set pastetoggle=<F12>
 
 " better navigating thought wraped lines
 nnoremap j gj
 nnoremap k gk
+
+" Arrow keys are EVIL
+map <Right> <Nop>
+map <Left>  <Nop>
+map <Up>    <Nop>
+map <Down>  <Nop>
+
 
 " status line: we want it at all times -- white on gray, with ASCII code of the current letter
 set statusline=%<%f%h%m%r%=char=%b=0x%B\ \ %l,%c%V\ %P
