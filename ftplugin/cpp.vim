@@ -12,7 +12,7 @@ let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
 let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 " automatically open and close the popup menu / preview window
 au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-set completeopt=menuone,menu,longest,preview
+set completeopt=menuone " ,menu,longest,preview
 
 set tabstop=4                  " A tab is 4 spaces
 set softtabstop=4              " Insert 4 spaces when tab is pressed
@@ -30,6 +30,8 @@ set tags+=./tags
 
 " temporary for fast testing
 map <F5> :write <CR> :!make run <CR>
+" this is faster to type
+map <leader>r :write <CR> :!make run <CR>
 
 " smart curly breckts inserting
 inoremap {<CR> {<ESC>mtA<CR>}<C-O>`t<Right><CR><End>
