@@ -9,6 +9,10 @@ set nocompatible
 " set my favorite colorscheme
 colors koehler
 
+" plugin to easilly install plugins
+execute pathogen#infect()
+execute pathogen#helptags()
+
 set backspace=indent,eol,start " allow backspacing over everything in insert mode
 set tabstop=4                  " A tab is 4 spaces
 set expandtab                  " Always uses spaces instead of tabs
@@ -66,7 +70,7 @@ set highlight+=s:MyStatusLineHighlight
 highlight MyStatusLineHighlight ctermbg=darkgray ctermfg=white
 
 " automatically reload vimrc when it's saved
-au BufWritePost .vimrc so ~/.vimrc
+au BufWritePost vimrc so ~/.vim/vimrc
 
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
@@ -74,11 +78,6 @@ inoremap <C-U> <C-G>u<C-U>
 
 " enable mouse
 set mouse=a
-
-" plugin to easilly install plugins
-" Don't forget to run :Helptags
-" after adding one more plugin
-execute pathogen#infect()
 
 " Enable file type detection.
 " Use the default filetype settings, so that mail gets 'tw' set to 72,
