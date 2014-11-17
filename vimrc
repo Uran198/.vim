@@ -21,7 +21,7 @@ set shiftwidth=4               " An indent is 4 spaces
 set smarttab                   " Indent instead of tab at start of line
 set shiftround                 " Round spaces to nearest shiftwidth multiple
 set nojoinspaces               " Don't convert spaces to tabs
-set autoindent
+set autoindent                 " automatic indentation
 set history=50                 " keep 50 lines of command line history
 set nobackup                   " do not keep a backup file
 set ruler                      " show the cursor position all the time
@@ -32,6 +32,9 @@ set wildmenu                   " Encganced <Tab> in command mode
 set ignorecase                 " ignore case while searching
 set smartcase                  " ignore case if search pattern is all lowercase, case-sensitive otherwise
 set autoread                   " automaticaly reread files change outside vim
+set undofile                   " save undo tree when unoading buffers
+set undodir=~/.vimundo         " here undo files will be placed
+set undolevels=1000            " set maximum number of changes than can be undone
 
 syntax on
 set incsearch		        " do incremental searching
