@@ -1,6 +1,7 @@
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
+setlocal tabstop=2
+setlocal softtabstop=2
+setlocal shiftwidth=2
 
-map <F5> :w <CR> :!ruby % <CR>
-map <leader>r :write <CR> :!ruby <CR>
+setlocal makeprg=ruby\ %
+
+map <leader>r :make
