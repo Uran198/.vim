@@ -7,7 +7,7 @@
 set nocompatible
 
 " set my favorite colorscheme
-colors koehler
+colors desert
 
 " plugin to easilly install plugins
 execute pathogen#infect()
@@ -113,3 +113,6 @@ autocmd BufReadPost *
 
 augroup END
 
+" Try to open link in firefox
+" note: it uses t register
+map <leader>gf "ty:!firefox <C-R>t<CR>
