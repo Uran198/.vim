@@ -32,9 +32,17 @@ set wildmenu                   " Encganced <Tab> in command mode
 set ignorecase                 " ignore case while searching
 set smartcase                  " ignore case if search pattern is all lowercase, case-sensitive otherwise
 set autoread                   " automaticaly reread files change outside vim
-set undofile                   " save undo tree when unoading buffers
+set undofile                   " save undo tree when unloading buffers
 set undodir=~/.vimundo         " here undo files will be placed
 set undolevels=1000            " set maximum number of changes than can be undone
+
+set encoding=utf-8
+" Hightlight trailing spaces and leave tabs untouched
+set list listchars=tab:\ \ ,trail:Ħ
+set autowrite                  " save file on external commands
+
+" set completition opetions in insert mode
+set completeopt=menu,menuone " ,longest,preview
 
 syntax on
 set incsearch		        " do incremental searching
@@ -71,9 +79,6 @@ set statusline=%<%f%h%m%r%=char=%b=0x%B\ \ %l,%c%V\ %P
 set laststatus=2
 set highlight+=s:MyStatusLineHighlight
 highlight MyStatusLineHighlight ctermbg=darkgray ctermfg=white
-
-" automatically reload vimrc when it's saved
-au BufWritePost vimrc so ~/.vim/vimrc
 
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
