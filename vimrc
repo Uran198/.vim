@@ -7,7 +7,7 @@
 set nocompatible
 
 " set my favorite colorscheme
-colors desert
+colors koehler
 
 " plugin to easilly install plugins
 execute pathogen#infect()
