@@ -113,6 +113,3 @@ autocmd BufReadPost *
 
 augroup END
 
-" Try to open link in firefox
-" note: it uses t register
-map <leader>gf "ty:!firefox <C-R>t<CR>
