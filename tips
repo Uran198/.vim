@@ -1,0 +1,7 @@
+:find
+:sfind
+'path'
+cscope          <-----------
+foldcolumn
+conceal
+keymap

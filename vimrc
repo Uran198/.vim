@@ -1,9 +1,3 @@
-" Made depending on the example for a vimrc file.
-"
-" Author of an example:	Bram Moolenaar <Bram@vim.org>
-
-" Use Vim settings, rather than Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
 set nocompatible
 
 " set my favorite colorscheme
@@ -27,6 +21,7 @@ set nobackup                   " do not keep a backup file
 set ruler                      " show the cursor position all the time
 set showcmd                    " display incomplete commands
 set number                     " show line numbers
+set relativenumber             " relative line numbers
 set hidden                     " hides files instead of closing
 set wildmenu                   " Encganced <Tab> in command mode
 set ignorecase                 " ignore case while searching
@@ -35,11 +30,12 @@ set autoread                   " automaticaly reread files change outside vim
 set undofile                   " save undo tree when unloading buffers
 set undodir=~/.vimundo         " here undo files will be placed
 set undolevels=1000            " set maximum number of changes than can be undone
+set autowrite                  " save file on external commands
 
 set encoding=utf-8
-" Hightlight trailing spaces and leave tabs untouched
-set list listchars=tab:\ \ ,trail:Ħ
-set autowrite                  " save file on external commands
+
+" Hightlight trailing spaces and tabs
+set list listchars=tab:>-,trail:Ħ
 
 " set completition opetions in insert mode
 set completeopt=menu,menuone " ,longest,preview
@@ -62,6 +58,9 @@ map Q gq
 
 " <F12> toggle paste
 set pastetoggle=<F12>
+
+map <leader>c :w<CR> :make<CR><CR><CR>
+map <leader>r :w<CR> :make run<CR><CR><CR>
 
 " better navigating thought wraped lines
 nnoremap j gj
