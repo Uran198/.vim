@@ -2,6 +2,10 @@
 :sfind
 'path'
 cscope          <-----------
+conceal         <-----------
 foldcolumn
 conceal
 keymap
+
+tabs vs spaces
+tabs seems to be better
