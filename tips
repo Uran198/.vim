@@ -6,6 +6,8 @@ conceal         <-----------
 foldcolumn
 conceal
 keymap
+foldexpr
+expresssion =
 
 tabs vs spaces
 tabs seems to be better

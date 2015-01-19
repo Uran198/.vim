@@ -8,11 +8,11 @@ execute pathogen#infect()
 execute pathogen#helptags()
 
 set backspace=indent,eol,start " allow backspacing over everything in insert mode
-set tabstop=4                  " A tab is 4 spaces
-set expandtab                  " Always uses spaces instead of tabs
-set softtabstop=4              " Insert 4 spaces when tab is pressed
-set shiftwidth=4               " An indent is 4 spaces
-set smarttab                   " Indent instead of tab at start of line
+set tabstop=8                  " A tab is 8 spaces
+" set expandtab                  " Always uses spaces instead of tabs
+set softtabstop=8              " Insert 8 spaces when tab is pressed
+set shiftwidth=0               " An indent is 8 spaces
+" set smarttab                   " Indent instead of tab at start of line
 set shiftround                 " Round spaces to nearest shiftwidth multiple
 set nojoinspaces               " Don't convert spaces to tabs
 set autoindent                 " automatic indentation
@@ -41,8 +41,11 @@ set list listchars=tab:>-,trail:Ħ
 set completeopt=menu,menuone " ,longest,preview
 
 syntax on
-set incsearch		        " do incremental searching
-set hlsearch			    " highlight search results
+set incsearch " do incremental searching
+set hlsearch  " highlight search results
+
+" set tabs hightlight color
+hi SpecialKey ctermfg=darkgray guifg=darkgray
 
 " use , for <Leader>
 let mapleader = ","
