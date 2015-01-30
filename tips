@@ -8,6 +8,8 @@ conceal
 keymap
 foldexpr
 expresssion =
+autoalign.vim
+dvj cvj :h o_v
 
 tabs vs spaces
 tabs seems to be better
