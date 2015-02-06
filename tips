@@ -10,6 +10,7 @@ foldexpr
 expresssion =
 autoalign.vim
 dvj cvj :h o_v
+:redir
 
 tabs vs spaces
 tabs seems to be better

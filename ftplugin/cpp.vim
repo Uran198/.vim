@@ -10,6 +10,3 @@ nmap <buffer> <leader>r :write <CR> :!make run <CR>
 "fast compiling & fixing
 nmap <buffer> <leader>c :write <CR> :make <CR>
 
-" smart curly brackets inserting
-inoremap <buffer> {<CR> {<ESC>mtA<CR>}<C-O>`t<Right><CR><End>
-
