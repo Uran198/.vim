@@ -86,8 +86,8 @@ highlight MyStatusLineHighlight ctermbg=darkgray ctermfg=white
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
 
-" enable mouse
-set mouse=a
+" disable mouse
+set mouse=
 
 " Enable file type detection.
 " Use the default filetype settings, so that mail gets 'tw' set to 72,
