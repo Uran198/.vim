@@ -4,4 +4,5 @@ setlocal shiftwidth=2
 
 setlocal makeprg=ruby\ %
 
-map <leader>r :make
+" fast running
+nmap <buffer> <leader>r :make <CR>

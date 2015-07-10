@@ -1,0 +1,18 @@
+:find
+:sfind
+'path'
+cscope          <-----------
+conceal         <-----------
+foldcolumn
+conceal
+keymap
+foldexpr
+expresssion =
+autoalign.vim
+dvj cvj :h o_v
+:redir
+
+tabs vs spaces
+tabs seems to be better
+
+use vundle?

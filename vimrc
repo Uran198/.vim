@@ -1,9 +1,3 @@
-" Made depending on the example for a vimrc file.
-"
-" Author of an example:	Bram Moolenaar <Bram@vim.org>
-
-" Use Vim settings, rather than Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
 set nocompatible
 
 " set my favorite colorscheme
@@ -14,11 +8,11 @@ execute pathogen#infect()
 execute pathogen#helptags()
 
 set backspace=indent,eol,start " allow backspacing over everything in insert mode
-set tabstop=4                  " A tab is 4 spaces
-set expandtab                  " Always uses spaces instead of tabs
-set softtabstop=4              " Insert 4 spaces when tab is pressed
-set shiftwidth=4               " An indent is 4 spaces
-set smarttab                   " Indent instead of tab at start of line
+set tabstop=8                  " A tab is 8 spaces
+" set expandtab                  " Always uses spaces instead of tabs
+set softtabstop=8              " Insert 8 spaces when tab is pressed
+set shiftwidth=0               " An indent is 8 spaces
+" set smarttab                   " Indent instead of tab at start of line
 set shiftround                 " Round spaces to nearest shiftwidth multiple
 set nojoinspaces               " Don't convert spaces to tabs
 set autoindent                 " automatic indentation
@@ -27,6 +21,7 @@ set nobackup                   " do not keep a backup file
 set ruler                      " show the cursor position all the time
 set showcmd                    " display incomplete commands
 set number                     " show line numbers
+set relativenumber             " relative line numbers
 set hidden                     " hides files instead of closing
 set wildmenu                   " Encganced <Tab> in command mode
 set ignorecase                 " ignore case while searching
@@ -35,6 +30,15 @@ set autoread                   " automaticaly reread files change outside vim
 set undofile                   " save undo tree when unloading buffers
 set undodir=~/.vimundo         " here undo files will be placed
 set undolevels=1000            " set maximum number of changes than can be undone
+set autowrite                  " save file on external commands
+
+set encoding=utf-8
+
+" Hightlight trailing spaces and tabs
+set list listchars=tab:>-,trail:Ħ
+
+" set completition opetions in insert mode
+set completeopt=menu,menuone " ,longest,preview
 
 set encoding=utf-8
 " Hightlight trailing spaces and leave tabs untouched
@@ -45,8 +49,11 @@ set autowrite                  " save file on external commands
 set completeopt=menu,menuone " ,longest,preview
 
 syntax on
-set incsearch		        " do incremental searching
-set hlsearch			    " highlight search results
+set incsearch " do incremental searching
+set hlsearch  " highlight search results
+
+" set tabs hightlight color
+hi SpecialKey ctermfg=darkgray guifg=darkgray
 
 " use , for <Leader>
 let mapleader = ","
@@ -62,6 +69,9 @@ map Q gq
 
 " <F12> toggle paste
 set pastetoggle=<F12>
+
+map <leader>c :w<CR> :make<CR><CR><CR>
+map <leader>r :w<CR> :make run<CR><CR><CR>
 
 " better navigating thought wraped lines
 nnoremap j gj
@@ -84,8 +94,8 @@ highlight MyStatusLineHighlight ctermbg=darkgray ctermfg=white
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
 
-" enable mouse
-set mouse=a
+" disable mouse
+set mouse=
 
 " Enable file type detection.
 " Use the default filetype settings, so that mail gets 'tw' set to 72,
@@ -113,3 +123,4 @@ autocmd BufReadPost *
 
 augroup END
 
+let g:syntastic_cpp_compiler_options = ' -std=c++0x'
