@@ -8,3 +8,5 @@ Instalation
     cd .vim
     git submodule init
     git submodule update
+
+For persistent undo don't forget to create a directory `.vimundo` in your home directory
