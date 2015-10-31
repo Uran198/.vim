@@ -7,6 +7,8 @@ colors koehler
 execute pathogen#infect()
 execute pathogen#helptags()
 
+let g:jedi#force_py_version = 3
+
 set backspace=indent,eol,start " allow backspacing over everything in insert mode
 set tabstop=8                  " A tab is 8 spaces
 " set expandtab                  " Always uses spaces instead of tabs
