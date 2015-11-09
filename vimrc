@@ -1,11 +1,36 @@
 set nocompatible
 
+filetype off			" required by Vundle
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'kien/ctrlp.vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'godlygeek/tabular'
+Plugin 'davidhalter/jedi-vim'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+
+" required to user nice colorschemes
+set t_Co=256
 " set my favorite colorscheme
-colors koehler
+"colors koehler
+colorscheme zenburn
 
 " plugin to easilly install plugins
 execute pathogen#infect()
 execute pathogen#helptags()
+
+
 
 let g:jedi#force_py_version = 3
 

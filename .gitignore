@@ -4,3 +4,6 @@
 Session.vim
 .netrwhist
 *~
+
+# ignore installed plugins
+bundle/*
