@@ -26,12 +26,6 @@ set t_Co=256
 "colors koehler
 colorscheme zenburn
 
-" plugin to easilly install plugins
-execute pathogen#infect()
-execute pathogen#helptags()
-
-
-
 let g:jedi#force_py_version = 3
 
 set backspace=indent,eol,start " allow backspacing over everything in insert mode
