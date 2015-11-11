@@ -4,9 +4,7 @@ My current vim settings.
 
 Instalation
 ---
-    git clone https://github.com/Uran198/.vim.git
-    cd .vim
-    git submodule init
-    git submodule update
+    git clone --recursive https://github.com/Uran198/.vim.git
+    vim +PluginInstall +qall
 
 For persistent undo don't forget to create a directory `.vimundo` in your home directory
