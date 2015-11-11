@@ -14,30 +14,36 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'scrooloose/syntastic'
 Plugin 'godlygeek/tabular'
 Plugin 'davidhalter/jedi-vim'
+Plugin 'tpope/vim-surround'
 
 " All of your Plugins must be added before the following line
+" After adding plugins run :PluginInstall
 call vundle#end()            " required
 filetype plugin indent on    " required
 
 
-" required to user nice colorschemes
+" required to use nice colorschemes
 set t_Co=256
 " set my favorite colorscheme
-"colors koehler
 colorscheme zenburn
 
+
+" Plugin settings
+let g:syntastic_cpp_compiler_options = ' -std=c++0x'
 let g:jedi#force_py_version = 3
 
+
 set backspace=indent,eol,start " allow backspacing over everything in insert mode
-set tabstop=8                  " A tab is 8 spaces
-" set expandtab                  " Always uses spaces instead of tabs
-set softtabstop=8              " Insert 8 spaces when tab is pressed
-set shiftwidth=0               " An indent is 8 spaces
-" set smarttab                   " Indent instead of tab at start of line
+set tabstop=4                  " A tab is X spaces
+set expandtab                  " Always uses spaces instead of tabs
+set softtabstop=4              " Insert X spaces when tab is pressed
+set shiftwidth=4               " An indent is X spaces
+set smarttab                   " Indent instead of tab at start of line
 set shiftround                 " Round spaces to nearest shiftwidth multiple
 set nojoinspaces               " Don't convert spaces to tabs
 set autoindent                 " automatic indentation
-set history=50                 " keep 50 lines of command line history
+
+set history=100                " keep X lines of command line history
 set nobackup                   " do not keep a backup file
 set ruler                      " show the cursor position all the time
 set showcmd                    " display incomplete commands
@@ -55,25 +61,17 @@ set autowrite                  " save file on external commands
 
 set encoding=utf-8
 
-" Hightlight trailing spaces and tabs
+" Hightlight tabs and trailing spaces
 set list listchars=tab:>-,trail:Ħ
 
 " set completition opetions in insert mode
 set completeopt=menu,menuone " ,longest,preview
 
-set encoding=utf-8
-" Hightlight trailing spaces and leave tabs untouched
-set list listchars=tab:\ \ ,trail:Ħ
-set autowrite                  " save file on external commands
-
-" set completition opetions in insert mode
-set completeopt=menu,menuone " ,longest,preview
-
 syntax on
-set incsearch " do incremental searching
-set hlsearch  " highlight search results
+set incsearch                   " do incremental searching
+set hlsearch                    " highlight search results
 
-" set tabs hightlight color
+" set listchars hightlight color
 hi SpecialKey ctermfg=darkgray guifg=darkgray
 
 " use , for <Leader>
@@ -98,7 +96,7 @@ map <leader>r :w<CR> :make run<CR><CR><CR>
 nnoremap j gj
 nnoremap k gk
 
-" Arrow keys are EVIL
+" Arrow keys are EVIL, remove them
 map <Right> <Nop>
 map <Left>  <Nop>
 map <Up>    <Nop>
@@ -143,5 +141,3 @@ autocmd BufReadPost *
 \ endif
 
 augroup END
-
-let g:syntastic_cpp_compiler_options = ' -std=c++0x'

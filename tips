@@ -11,8 +11,11 @@ expresssion =
 autoalign.vim
 dvj cvj :h o_v
 :redir
+surround-vim
+:sv,:vs
+
+for Vim everywhere put in ~/.inputrc
+set editing-mode vi
 
 tabs vs spaces
-tabs seems to be better
-
-use vundle?
+spaces seems to be better
