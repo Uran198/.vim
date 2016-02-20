@@ -66,7 +66,7 @@ set encoding=utf-8
 set list listchars=tab:>-,trail:Ħ
 
 " set completition opetions in insert mode
-set completeopt=menu,menuone " ,longest,preview
+set completeopt=longest,menuone
 
 syntax on
 set incsearch                   " do incremental searching
