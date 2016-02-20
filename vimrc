@@ -15,6 +15,7 @@ Plugin 'scrooloose/syntastic'
 Plugin 'godlygeek/tabular'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-repeat'
 
 " All of your Plugins must be added before the following line
 " After adding plugins run :PluginInstall
@@ -141,3 +142,7 @@ autocmd BufReadPost *
 \ endif
 
 augroup END
+
+
+" Repeat vim repeat
+silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
