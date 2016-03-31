@@ -32,6 +32,9 @@ colorscheme zenburn
 " Plugin settings
 let g:syntastic_cpp_compiler_options = ' -std=c++0x'
 let g:jedi#force_py_version = 3
+" Make ctrlp ignore files from gitignore
+" From https://github.com/kien/ctrlp.vim/issues/174
+let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
 
 set backspace=indent,eol,start " allow backspacing over everything in insert mode
