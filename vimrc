@@ -62,6 +62,9 @@ set undofile                   " save undo tree when unloading buffers
 set undodir=~/.vimundo         " here undo files will be placed
 set undolevels=1000            " set maximum number of changes than can be undone
 set autowrite                  " save file on external commands
+set keymap=ukrainian-jcuken    " set ukrainian keymap
+set iminsert=0
+set imsearch=-1
 
 set encoding=utf-8
 
