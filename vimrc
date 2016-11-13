@@ -16,6 +16,7 @@ Plugin 'godlygeek/tabular'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
+Plugin 'rking/ag.vim'
 
 " All of your Plugins must be added before the following line
 " After adding plugins run :PluginInstall
@@ -30,7 +31,8 @@ colorscheme zenburn
 
 
 " Plugin settings
-let g:syntastic_cpp_compiler_options = ' -std=c++0x'
+" let g:syntastic_cpp_compiler_options = ' -std=c++0x'
+let g:syntastic_cpp_checkers = ['clang_check']
 let g:jedi#force_py_version = 3
 " Make ctrlp ignore files from gitignore
 " From https://github.com/kien/ctrlp.vim/issues/174
@@ -55,6 +57,7 @@ set number                     " show line numbers
 set relativenumber             " relative line numbers
 set hidden                     " hides files instead of closing
 set wildmenu                   " Encganced <Tab> in command mode
+set wildmode=longest,list,full " Make <Tab> behave more bash-like
 set ignorecase                 " ignore case while searching
 set smartcase                  " ignore case if search pattern is all lowercase, case-sensitive otherwise
 set autoread                   " automaticaly reread files change outside vim
