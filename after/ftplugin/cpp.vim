@@ -2,10 +2,10 @@ setlocal tabstop=4                  " A tab is 4 spaces
 setlocal softtabstop=4              " Insert 4 spaces when tab is pressed
 setlocal shiftwidth=4               " An indent is 4 spaces
 setlocal cindent                    " Enable c indent style
-setlocal cinoptions=g-1             " better but not perfect indentation(ex. access specifiers)
+setlocal cinoptions=g0,(s,us,U1,m1,:0,j1,+0
 
 "fast compiling & fixing
-nmap <buffer> <leader>c :write <CR> :make <CR>
+nmap <buffer> <leader>c :write <CR> :!g++ -std=c++11 % -o %:t:r <CR>
 
 " compile and run
 function! Run(...)
@@ -40,10 +40,30 @@ function! Run(...)
     if filereadable(output)
        let l:bin = l:bin . ' > ' . output
     endif
-    silent !g++ % -o %:t:r
+    silent !g++ -std=c++11 % -o %:t:r
     execute '!./' . l:bin
     redraw!
   endif
 endfunction
 
 map <leader>r :call Run('in','out')<CR>
+
+" Make difference in indentation at most one tab
+function! TabDiffCindent(lnum)
+    let l:prevlnum = prevnonblank(a:lnum-1)
+    if l:prevlnum == 0
+        return 0
+    endif
+
+    let l:pind = indent(l:prevlnum)
+    let l:ind = cindent(a:lnum)
+
+    if l:pind < l:ind && cindent(l:prevlnum) < l:ind
+        let l:ind = l:pind + &shiftwidth
+    endif
+
+    return l:ind
+endfunction
+
+setlocal indentexpr=TabDiffCindent(v:lnum)
+setlocal indentkeys=0{,0},0),:,0#,!^F,o,O,e
