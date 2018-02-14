@@ -67,3 +67,5 @@ endfunction
 
 setlocal indentexpr=TabDiffCindent(v:lnum)
 setlocal indentkeys=0{,0},0),:,0#,!^F,o,O,e
+
+let b:match_words .= ',<:>'

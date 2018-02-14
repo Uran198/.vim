@@ -155,3 +155,5 @@ augroup END
 
 " Repeat vim repeat
 silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
+
+packadd! matchit
