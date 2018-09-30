@@ -5,7 +5,7 @@ setlocal cindent                    " Enable c indent style
 setlocal cinoptions=g0,(s,us,U1,m1,:0,j1,+0
 
 "fast compiling & fixing
-nmap <buffer> <leader>c :write <CR> :!g++ -std=c++11 % -o %:t:r <CR>
+nmap <buffer> <leader>c :write <CR> :!g++ -std=c++11 -O3 % -o %:t:r <CR>
 
 " compile and run
 function! Run(...)
@@ -21,12 +21,12 @@ function! Run(...)
 
   " Must be a better way to do it
   let can_make = 0
-  for mfile in makefiles
-    let can_make = filereadable(mfile)
-    if can_make
-      break
-    endif
-  endfor
+  " for mfile in makefiles
+  "   let can_make = filereadable(mfile)
+  "   if can_make
+  "     break
+  "   endif
+  " endfor
 
   write "save changes
   if can_make
