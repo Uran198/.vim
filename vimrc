@@ -17,6 +17,7 @@ Plugin 'davidhalter/jedi-vim'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'rking/ag.vim'
+Plugin 'vim-scripts/LanguageTool'
 
 " All of your Plugins must be added before the following line
 " After adding plugins run :PluginInstall
@@ -155,5 +156,42 @@ augroup END
 
 " Repeat vim repeat
 silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
+
+
+" LanguageTool configuration
+let g:languagetool_jar='$HOME/Downloads/LanguageTool-2.9/languagetool-commandline.jar'
+" let g:languagetool_lang='uk'
+let g:languagetool_lang='en'
+
+
+" TODO: Can I use LanguageTool somehow?
+" Translate stuff from hungarian
+function! s:Translate(command)
+    let word = expand('<cword>')
+    " If not in the scratch window, try finding it or create one
+    if &buftype != 'nofile'
+        for win in range(1, winnr())
+            exe "norm! " . win . " \<C-W>w"
+            if &buftype == 'nofile'
+                break
+            endif
+        endfor
+        if &buftype != 'nofile'
+            new
+        endif
+    endif
+    " Make sure all the options are correct
+    setlocal nonumber buftype=nofile bufhidden=hide noswapfile
+    setlocal filetype=markdown
+    " Clear scratch file
+    exe "norm! ggdG"
+    silent exe "r!" . a:command . " " . word
+    0d
+endfunction
+
+" command! -nargs=0 CTranslate call s:Translate('/home/attila/get_hun.py')
+" " TODO Do only on certain filetypes or better yet make a vim script to
+" source when want it to work. Or make it switch on/off able.
+" noremap K :CTranslate<CR>
 
 packadd! matchit
