@@ -51,7 +51,7 @@ set shiftround                 " Round spaces to nearest shiftwidth multiple
 set nojoinspaces               " Don't convert spaces to tabs
 set autoindent                 " automatic indentation
 
-set history=100                " keep X lines of command line history
+set history=10000              " keep X lines of command line history
 set nobackup                   " do not keep a backup file
 set ruler                      " show the cursor position all the time
 set showcmd                    " display incomplete commands
