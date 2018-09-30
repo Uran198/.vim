@@ -27,7 +27,8 @@ filetype plugin indent on    " required
 
 " required to use nice colorschemes
 set t_Co=256
-" set my favorite colorscheme
+let g:zenburn_old_Visual = 1
+let g:zenburn_high_Contrast=1
 colorscheme zenburn
 
 
