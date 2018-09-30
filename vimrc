@@ -95,6 +95,9 @@ noremap <silent><Leader>/ :nohls<CR>
 " use ; instead of :
 noremap ; :
 
+" Use Y like D
+noremap Y y$
+
 " Don't use Ex mode, use Q for formatting
 map Q gq
 
