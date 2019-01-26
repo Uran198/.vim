@@ -200,3 +200,6 @@ endfunction
 " noremap K :CTranslate<CR>
 
 packadd! matchit
+
+" vimwiki highlight preformated with blue
+hi VimwikiPre ctermfg=20
