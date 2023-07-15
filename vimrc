@@ -10,15 +10,22 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
-Plugin 'kien/ctrlp.vim'
-Plugin 'scrooloose/syntastic'
+Plugin 'ctrlpvim/ctrlp.vim'
+" Plugin 'scrooloose/syntastic'
 Plugin 'godlygeek/tabular'
-Plugin 'davidhalter/jedi-vim'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-repeat'
+" Plugin 'davidhalter/jedi-vim'
+" Plugin 'tpope/vim-surround'
+" Plugin 'tpope/vim-repeat'
 Plugin 'rking/ag.vim'
+Plugin 'prabirshrestha/async.vim'
+Plugin 'prabirshrestha/vim-lsp'
+Plugin 'will133/vim-dirdiff'
+Plugin 'preservim/tagbar'
+Plugin 'neoclide/coc.nvim', {'branch': 'release'}
+Plugin 'preservim/nerdtree'
 Plugin 'vim-scripts/LanguageTool'
-Plugin 'vimwiki/vimwiki'
+" Plugin 'sirver/UltiSnips'
+Plugin 'nathangrigg/vim-beancount'
 
 " All of your Plugins must be added before the following line
 " After adding plugins run :PluginInstall
@@ -28,20 +35,54 @@ filetype plugin indent on    " required
 
 " required to use nice colorschemes
 set t_Co=256
-let g:zenburn_old_Visual = 1
-let g:zenburn_high_Contrast=1
+" let g:zenburn_old_Visual = 1
+" let g:zenburn_high_Contrast=1
+let g:zenburn_transparent = 0
 colorscheme zenburn
 
+hi Normal    ctermfg=188 ctermbg=none  guifg=#dcdccc
+
+" use , for <Leader>
+let mapleader = ","
 
 " Plugin settings
 " let g:syntastic_cpp_compiler_options = ' -std=c++0x'
 let g:syntastic_cpp_checkers = ['clang_check']
-let g:jedi#force_py_version = 3
 " Make ctrlp ignore files from gitignore
 " From https://github.com/kien/ctrlp.vim/issues/174
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
+" Use AG for CtrlP
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
 
+  let g:ag_prg = 'ag --column --nogroup --noheading
+    \ --ignore .git
+    \ --ignore .svn
+    \ --ignore .hg
+    \ --ignore .DS_Store
+    \ --ignore "**/*.pyc"
+    \ --ignore .git5_specs
+    \ --ignore vendor'
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = '/usr/bin/ag %s -i --nocolor --nogroup --hidden
+    \ --ignore .git
+    \ --ignore .svn
+    \ --ignore .hg
+    \ --ignore .DS_Store
+    \ --ignore "**/*.pyc"
+    \ --ignore .git5_specs
+    \ --ignore review
+    \ --ignore vendor
+    \ -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
+
+set cursorline " Highlight the current cursor line
 set backspace=indent,eol,start " allow backspacing over everything in insert mode
 set tabstop=4                  " A tab is X spaces
 set expandtab                  " Always uses spaces instead of tabs
@@ -68,11 +109,17 @@ set undofile                   " save undo tree when unloading buffers
 set undodir=~/.vimundo         " here undo files will be placed
 set undolevels=1000            " set maximum number of changes than can be undone
 set autowrite                  " save file on external commands
-set keymap=ukrainian-jcuken    " set ukrainian keymap
+" set keymap=ukrainian-jcuken    " set ukrainian keymap
+set keymap=magyar_utf-8
 set iminsert=0
 set imsearch=-1
+set formatoptions=croqlj
+set foldcolumn=1 " 1 column for folds
 
 set encoding=utf-8
+
+" Match <>
+set matchpairs+=<:>
 
 " Hightlight tabs and trailing spaces
 set list listchars=tab:>-,trail:Ħ
@@ -87,9 +134,6 @@ set hlsearch                    " highlight search results
 " set listchars hightlight color
 hi SpecialKey ctermfg=darkgray guifg=darkgray
 
-" use , for <Leader>
-let mapleader = ","
-
 " switch off highlighting with <Leader>/
 noremap <silent><Leader>/ :nohls<CR>
 
@@ -100,23 +144,26 @@ noremap ; :
 noremap Y y$
 
 " Don't use Ex mode, use Q for formatting
-map Q gq
+nnoremap Q gq
+vnoremap Q gq
+" autocmd FileType cpp,python,proto vmap <buffer><silent>Q :FormatLines<CR>
+" autocmd FileType cpp,python,proto nmap <buffer><silent>Q :set opfunc=codefmt#FormatMap<CR>g@
 
 " <F12> toggle paste
 set pastetoggle=<F12>
 
-map <leader>c :w<CR> :make<CR><CR><CR>
-map <leader>r :w<CR> :make run<CR><CR><CR>
-
 " better navigating thought wraped lines
-nnoremap j gj
-nnoremap k gk
+" nnoremap j gj
+" nnoremap k gk
+
+" Fix unintuitive Y
+noremap Y y$
 
 " Arrow keys are EVIL, remove them
-map <Right> <Nop>
-map <Left>  <Nop>
-map <Up>    <Nop>
-map <Down>  <Nop>
+" map <Right> <Nop>
+" map <Left>  <Nop>
+" map <Up>    <Nop>
+" map <Down>  <Nop>
 
 
 " status line: we want it at all times -- white on gray, with ASCII code of the current letter
@@ -161,7 +208,95 @@ augroup END
 
 " Repeat vim repeat
 silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
+"
+" Cursor line should like other, and not __0_
+hi clear CursorLineNr
+" Hide 0 on the current line
+" hi CursorLineNr ctermfg=237
 
+command Adate put ='=== '.strftime('%d-%m-%Y').' ==='
+
+set modeline
+
+let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+\ }
+
+let python_highlight_all=1
+
+" COC setup
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+vmap <leader>f  <Plug>(coc-format-selected)
+autocmd FileType typescript,json,php setl formatexpr=CocAction('formatSelected')
+command! -nargs=0 Format :call CocActionAsync('format')
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call ShowDocumentation()<CR>
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+
+" Automatically close outline.
+autocmd BufEnter * call CheckOutline()
+function! CheckOutline() abort
+  if &filetype ==# 'coctree' && winnr('$') == 1
+    if tabpagenr('$') != 1
+      close
+    else
+      bdelete
+    endif
+  endif
+endfunction
+
+nnoremap <silent><nowait> <leader>o  :call ToggleOutline()<CR>
+function! ToggleOutline() abort
+  let winid = coc#window#find('cocViewId', 'OUTLINE')
+  if winid == -1
+    call CocActionAsync('showOutline', 1)
+  else
+    call coc#window#close(winid)
+  endif
+endfunction
+
+" Jump between diagnostics
+nmap <silent> ,dn <Plug>(coc-diagnostic-next)
+nmap <silent> ,dp <Plug>(coc-diagnostic-prev)
+
+" Use small terminal by default.
+set termwinsize=10x0
+" Don't change window size on split/close of windows.
+set noequalalways
 
 " LanguageTool configuration
 let g:languagetool_jar='$HOME/Downloads/LanguageTool-2.9/languagetool-commandline.jar'
@@ -201,5 +336,22 @@ endfunction
 
 packadd! matchit
 
-" vimwiki highlight preformated with blue
-hi VimwikiPre ctermfg=20
+" Swap files location.
+set dir=~/tmp,/var/tmp,/tmp
+
+let g:coc_global_extensions = ['coc-json', 'coc-phpls', 'coc-html',
+            \'coc-vetur', 'coc-markdown-preview-enhanced', 'coc-webview', 'coc-jedi']
+" For beancount to allow autocompletion of whole account names.
+autocmd FileType beancount let b:coc_additional_keywords = [":", "-"]
+autocmd FileType beancount setl softtabstop=2 shiftwidth=2 tabstop=2
+autocmd FileType beancount setl softtabstop=2 shiftwidth=2 tabstop=2
+autocmd FileType beancount inoremap <C-L> <C-O>n<C-O>cE
+" autocmd FileType beancount let b:coc_disabled_sources = ['buffer', 'file']
+" Disable completion for 'end' in Lua files
+" autocmd FileType lua let b:coc_suggest_blacklist = ["end"]
+
+" Correct comments for coc-settings.json
+autocmd FileType json syntax match Comment +\/\/.\+$+
+
+" Add missing imports on save.
+autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')

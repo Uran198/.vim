@@ -5,7 +5,7 @@ setlocal cindent                    " Enable c indent style
 setlocal cinoptions=g0,(s,us,U1,m1,:0,j1,+0
 
 "fast compiling & fixing
-nmap <buffer> <leader>c :write <CR> :!g++ -std=c++11 -O3 % -o %:t:r <CR>
+nmap <buffer> <leader>c :write <CR> :!g++ -std=c++1z -O3 % -o %:t:r <CR>
 
 " compile and run
 function! Run(...)
@@ -40,7 +40,7 @@ function! Run(...)
     if filereadable(output)
        let l:bin = l:bin . ' > ' . output
     endif
-    silent !g++ -std=c++11 % -o %:t:r
+    silent !g++ -std=c++1z % -o %:t:r
     execute '!./' . l:bin
     redraw!
   endif

@@ -1,0 +1,58 @@
+
+snippet iee "if err := ...; err != nil {return err}"
+if err := ${1:${VISUAL}}; err != nil {
+	return err
+}
+$2
+endsnippet
+
+snippet ie "if err != nil {return err}"
+if err != nil {
+	return err
+}
+$2
+endsnippet
+
+snippet fatal "if err != nil { t.Fatal(err)}"
+if err != nil {
+	t.Fatal(err)
+}
+endsnippet
+
+snippet error "if err != nil { t.Error(err)}"
+if err != nil {
+	t.Errorf("$1%v", $2err)
+}
+endsnippet
+
+snippet ifatal "if err := ...; err != nil { t.Fatal(err)}"
+if err := $1; err != nil {
+	t.Fatal(err)
+}
+endsnippet
+
+snippet ierror "if err := ...; err != nil { t.Error(err)}"
+if err := $1; err != nil {
+	t.Errorf("$2%v", $3err)
+}
+endsnippet
+
+snippet fr "for k, v := range ... {...}"
+for $1, $2 := range $3 {
+	$0
+}
+endsnippet
+
+snippet action "new action type"
+type $1 struct {
+	*Clients
+}
+
+func (a *$1) Perform(u *Update) ([]Action, error) {
+	return []Action{}, nil
+}
+
+func (a *$1) Match(u *Update) bool {
+	return false
+}
+endsnippet
