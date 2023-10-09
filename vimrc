@@ -34,16 +34,23 @@ filetype plugin indent on    " required
 
 
 " required to use nice colorschemes
-set t_Co=256
-" let g:zenburn_old_Visual = 1
-" let g:zenburn_high_Contrast=1
+" set t_Co=256
+let g:zenburn_high_Contrast = 0
 let g:zenburn_transparent = 0
 colorscheme zenburn
 
-hi Normal    ctermfg=188 ctermbg=none  guifg=#dcdccc
+" Use UI colors.
+set termguicolors
 
+" Makes things more black.
+" hi Normal    ctermfg=188 ctermbg=none  guifg=#dcdccc
+
+" Trying going back to defaults.
 " use , for <Leader>
-let mapleader = ","
+" let mapleader = ","
+" use ; instead of :
+" noremap ; :
+
 
 " Plugin settings
 " let g:syntastic_cpp_compiler_options = ' -std=c++0x'
@@ -135,10 +142,7 @@ set hlsearch                    " highlight search results
 hi SpecialKey ctermfg=darkgray guifg=darkgray
 
 " switch off highlighting with <Leader>/
-noremap <silent><Leader>/ :nohls<CR>
-
-" use ; instead of :
-noremap ; :
+noremap <silent><Leader><Leader> :nohls<CR>
 
 " Use Y like D
 noremap Y y$
@@ -169,8 +173,10 @@ noremap Y y$
 " status line: we want it at all times -- white on gray, with ASCII code of the current letter
 set statusline=%<%f%h%m%r%=char=%b=0x%B\ \ %l,%c%V\ %P
 set laststatus=2
-set highlight+=s:MyStatusLineHighlight
-highlight MyStatusLineHighlight ctermbg=darkgray ctermfg=white
+
+" FIXME: Deprecated in nvim
+" highlight MyStatusLineHighlight ctermbg=darkgray ctermfg=white
+" set highlight+=s:MyStatusLineHighlight
 
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
@@ -290,11 +296,12 @@ function! ToggleOutline() abort
 endfunction
 
 " Jump between diagnostics
-nmap <silent> ,dn <Plug>(coc-diagnostic-next)
-nmap <silent> ,dp <Plug>(coc-diagnostic-prev)
+nmap <silent> <Leader>dn <Plug>(coc-diagnostic-next)
+nmap <silent> <Leader>dp <Plug>(coc-diagnostic-prev)
 
 " Use small terminal by default.
-set termwinsize=10x0
+" FIXME: nvim doesn't support this
+" set termwinsize=10x0
 " Don't change window size on split/close of windows.
 set noequalalways
 
@@ -342,10 +349,11 @@ set dir=~/tmp,/var/tmp,/tmp
 let g:coc_global_extensions = ['coc-json', 'coc-phpls', 'coc-html',
             \'coc-vetur', 'coc-markdown-preview-enhanced', 'coc-webview', 'coc-jedi']
 " For beancount to allow autocompletion of whole account names.
-autocmd FileType beancount let b:coc_additional_keywords = [":", "-"]
+autocmd FileType beancount let b:coc_additional_keywords = [":", "-", "#"]
 autocmd FileType beancount setl softtabstop=2 shiftwidth=2 tabstop=2
 autocmd FileType beancount setl softtabstop=2 shiftwidth=2 tabstop=2
-autocmd FileType beancount inoremap <C-L> <C-O>n<C-O>cE
+autocmd FileType beancount inoremap <C-L> <C-O>/Expenses:TODO<C-M><C-O>cE
+autocmd FileType beancount nnoremap <Leader>L /Expenses:TODO<C-M>cE
 " autocmd FileType beancount let b:coc_disabled_sources = ['buffer', 'file']
 " Disable completion for 'end' in Lua files
 " autocmd FileType lua let b:coc_suggest_blacklist = ["end"]
