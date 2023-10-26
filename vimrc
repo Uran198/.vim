@@ -21,11 +21,14 @@ Plugin 'prabirshrestha/async.vim'
 Plugin 'prabirshrestha/vim-lsp'
 Plugin 'will133/vim-dirdiff'
 Plugin 'preservim/tagbar'
-Plugin 'neoclide/coc.nvim', {'branch': 'release'}
+" Plugin 'neoclide/coc.nvim', {'branch': 'release'}
 Plugin 'preservim/nerdtree'
 Plugin 'vim-scripts/LanguageTool'
 " Plugin 'sirver/UltiSnips'
 Plugin 'nathangrigg/vim-beancount'
+
+Plugin 'neovim/nvim-lspconfig'
+Plugin 'ray-x/lsp_signature.nvim'
 
 " All of your Plugins must be added before the following line
 " After adding plugins run :PluginInstall
