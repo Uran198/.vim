@@ -1,5 +1,6 @@
 set nocompatible
 
+
 filetype off			" required by Vundle
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -10,15 +11,15 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
-Plugin 'ctrlpvim/ctrlp.vim'
+" Plugin 'ctrlpvim/ctrlp.vim'
 " Plugin 'scrooloose/syntastic'
 Plugin 'godlygeek/tabular'
 " Plugin 'davidhalter/jedi-vim'
 " Plugin 'tpope/vim-surround'
 " Plugin 'tpope/vim-repeat'
-Plugin 'rking/ag.vim'
-Plugin 'prabirshrestha/async.vim'
-Plugin 'prabirshrestha/vim-lsp'
+" Plugin 'rking/ag.vim'
+" Plugin 'prabirshrestha/async.vim'
+" Plugin 'prabirshrestha/vim-lsp'
 Plugin 'will133/vim-dirdiff'
 Plugin 'preservim/tagbar'
 " Plugin 'neoclide/coc.nvim', {'branch': 'release'}
@@ -27,20 +28,52 @@ Plugin 'vim-scripts/LanguageTool'
 " Plugin 'sirver/UltiSnips'
 Plugin 'nathangrigg/vim-beancount'
 
+" Plugin 'leafgarland/typescript-vim'
+Plugin 'peitalin/vim-jsx-typescript'
+Plugin 'tpope/vim-rhubarb'
+
 Plugin 'neovim/nvim-lspconfig'
 Plugin 'ray-x/lsp_signature.nvim'
+Plugin 'morhetz/gruvbox'
+Plugin 'tpope/vim-unimpaired'
+
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
+
+" Plugin 'mfussenegger/nvim-dap'
+" Plugin 'mxsdev/nvim-dap-vscode-js'
+
+Plugin 'puremourning/vimspector'
 
 " All of your Plugins must be added before the following line
 " After adding plugins run :PluginInstall
 call vundle#end()            " required
 filetype plugin indent on    " required
 
+" To work in Nix.
+let g:python3_host_prog = '/usr/bin/python3'
+let g:vimspector_enable_mappings = 'HUMAN'
+
 
 " required to use nice colorschemes
 " set t_Co=256
-let g:zenburn_high_Contrast = 0
-let g:zenburn_transparent = 0
-colorscheme zenburn
+" let g:zenburn_high_Contrast = 0
+" let g:zenburn_transparent = 0
+" colorscheme zenburn
+colorscheme gruvbox
+" hi! link LineNrBelow LineNr
+hi! LineNrBelow guifg=#a89984 guibg=NONE guisp=NONE gui=NONE
+hi! LineNrAbove guifg=#b0a390 guibg=NONE guisp=NONE gui=NONE
+" set listchars hightlight color
+" hi SpecialKey ctermfg=darkgray guifg=darkgray
+" Cursor line should like other, and not __0_
+" hi clear CursorLineNr
+" Hide 0 on the current line
+" hi CursorLineNr ctermfg=237
+" nnoremap * :let @/ = ""<CR>:call gruvbox#hls_show()<CR>*
+" nnoremap / :let @/ = ""<CR>:call gruvbox#hls_show()<CR>/
+" nnoremap ? :let @/ = ""<CR>:call gruvbox#hls_show()<CR>?
+
 
 " Use UI colors.
 set termguicolors
@@ -62,6 +95,8 @@ let g:syntastic_cpp_checkers = ['clang_check']
 " From https://github.com/kien/ctrlp.vim/issues/174
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
+noremap <silent> <C-p> :Files<CR>
+
 " Use AG for CtrlP
 if executable('ag')
   " Use ag over grep
@@ -74,10 +109,11 @@ if executable('ag')
     \ --ignore .DS_Store
     \ --ignore "**/*.pyc"
     \ --ignore .git5_specs
+    \ --ignore node_modules
     \ --ignore vendor'
 
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = '/usr/bin/ag %s -i --nocolor --nogroup --hidden
+  let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
     \ --ignore .git
     \ --ignore .svn
     \ --ignore .hg
@@ -85,19 +121,20 @@ if executable('ag')
     \ --ignore "**/*.pyc"
     \ --ignore .git5_specs
     \ --ignore review
+    \ --ignore node_modules
     \ --ignore vendor
     \ -g ""'
 
   " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
+  " let g:ctrlp_use_caching = 0
 endif
 
 set cursorline " Highlight the current cursor line
 set backspace=indent,eol,start " allow backspacing over everything in insert mode
-set tabstop=4                  " A tab is X spaces
 set expandtab                  " Always uses spaces instead of tabs
-set softtabstop=4              " Insert X spaces when tab is pressed
-set shiftwidth=4               " An indent is X spaces
+set tabstop=2                  " A tab is X spaces
+set softtabstop=2              " Insert X spaces when tab is pressed
+set shiftwidth=2               " An indent is X spaces
 set smarttab                   " Indent instead of tab at start of line
 set shiftround                 " Round spaces to nearest shiftwidth multiple
 set nojoinspaces               " Don't convert spaces to tabs
@@ -141,8 +178,6 @@ syntax on
 set incsearch                   " do incremental searching
 set hlsearch                    " highlight search results
 
-" set listchars hightlight color
-hi SpecialKey ctermfg=darkgray guifg=darkgray
 
 " switch off highlighting with <Leader>/
 noremap <silent><Leader><Leader> :nohls<CR>
@@ -217,11 +252,6 @@ augroup END
 
 " Repeat vim repeat
 silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
-"
-" Cursor line should like other, and not __0_
-hi clear CursorLineNr
-" Hide 0 on the current line
-" hi CursorLineNr ctermfg=237
 
 command Adate put ='=== '.strftime('%d-%m-%Y').' ==='
 
@@ -257,50 +287,57 @@ let g:tagbar_type_go = {
 
 let python_highlight_all=1
 
-" COC setup
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-vmap <leader>f  <Plug>(coc-format-selected)
-autocmd FileType typescript,json,php setl formatexpr=CocAction('formatSelected')
-command! -nargs=0 Format :call CocActionAsync('format')
-
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call ShowDocumentation()<CR>
-function! ShowDocumentation()
-  if CocAction('hasProvider', 'hover')
-    call CocActionAsync('doHover')
-  else
-    call feedkeys('K', 'in')
-  endif
-endfunction
-
-" Automatically close outline.
-autocmd BufEnter * call CheckOutline()
-function! CheckOutline() abort
-  if &filetype ==# 'coctree' && winnr('$') == 1
-    if tabpagenr('$') != 1
-      close
-    else
-      bdelete
-    endif
-  endif
-endfunction
-
-nnoremap <silent><nowait> <leader>o  :call ToggleOutline()<CR>
-function! ToggleOutline() abort
-  let winid = coc#window#find('cocViewId', 'OUTLINE')
-  if winid == -1
-    call CocActionAsync('showOutline', 1)
-  else
-    call coc#window#close(winid)
-  endif
-endfunction
-
-" Jump between diagnostics
-nmap <silent> <Leader>dn <Plug>(coc-diagnostic-next)
-nmap <silent> <Leader>dp <Plug>(coc-diagnostic-prev)
+"    " COC setup
+"    nmap <silent> gd <Plug>(coc-definition)
+"    nmap <silent> gy <Plug>(coc-type-definition)
+"    nmap <silent> gi <Plug>(coc-implementation)
+"    nmap <silent> gr <Plug>(coc-references)
+"    
+"    vmap <leader>f  <Plug>(coc-format-selected)
+"    
+"    nmap <leader>r  <Plug>(coc-rename)
+"    
+"    nmap <silent> ge <Plug>(coc-diagnostic-next)
+"    nmap <silent> gp <Plug>(coc-diagnostic-prev)
+"    " Jump between diagnostics
+"    " nmap <silent> <Leader>dn <Plug>(coc-diagnostic-next)
+"    " nmap <silent> <Leader>dp <Plug>(coc-diagnostic-prev)
+"    
+"    
+"    autocmd FileType typescript,json,php setl formatexpr=CocAction('formatSelected')
+"    command! -nargs=0 Format :call CocActionAsync('format')
+"    
+"    " Use K to show documentation in preview window.
+"    nnoremap <silent> K :call ShowDocumentation()<CR>
+"    function! ShowDocumentation()
+"      if CocAction('hasProvider', 'hover')
+"        call CocActionAsync('doHover')
+"      else
+"        call feedkeys('K', 'in')
+"      endif
+"    endfunction
+"    
+"    " Automatically close outline.
+"    autocmd BufEnter * call CheckOutline()
+"    function! CheckOutline() abort
+"      if &filetype ==# 'coctree' && winnr('$') == 1
+"        if tabpagenr('$') != 1
+"          close
+"        else
+"          bdelete
+"        endif
+"      endif
+"    endfunction
+"    
+"    nnoremap <silent><nowait> <leader>o  :call ToggleOutline()<CR>
+"    function! ToggleOutline() abort
+"      let winid = coc#window#find('cocViewId', 'OUTLINE')
+"      if winid == -1
+"        call CocActionAsync('showOutline', 1)
+"      else
+"        call coc#window#close(winid)
+"      endif
+"    endfunction
 
 " Use small terminal by default.
 " FIXME: nvim doesn't support this
@@ -350,7 +387,7 @@ packadd! matchit
 set dir=~/tmp,/var/tmp,/tmp
 
 let g:coc_global_extensions = ['coc-json', 'coc-phpls', 'coc-html',
-            \'coc-vetur', 'coc-markdown-preview-enhanced', 'coc-webview', 'coc-jedi']
+            \'coc-vetur', 'coc-webview', 'coc-jedi']
 " For beancount to allow autocompletion of whole account names.
 autocmd FileType beancount let b:coc_additional_keywords = [":", "-", "#"]
 autocmd FileType beancount setl softtabstop=2 shiftwidth=2 tabstop=2
@@ -366,3 +403,15 @@ autocmd FileType json syntax match Comment +\/\/.\+$+
 
 " Add missing imports on save.
 autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
+
+" For JS - fixes enum using 4 spaces indentation everywhere apart form the first line.
+let g:typescript_indent_disable = 1
+
+" Mappings
+noremap \gh :GBrowse<CR>
+
+norema \gb :Git blame<CR>
+
+" TODO: Configure cwindow population with fzf and multi file selection on
+" :Files.
+
