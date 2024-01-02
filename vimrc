@@ -37,6 +37,16 @@ Plugin 'ray-x/lsp_signature.nvim'
 Plugin 'morhetz/gruvbox'
 Plugin 'tpope/vim-unimpaired'
 
+" Auto-completions.
+Plugin 'hrsh7th/cmp-nvim-lsp'
+Plugin 'hrsh7th/cmp-buffer'
+Plugin 'hrsh7th/cmp-path'
+Plugin 'hrsh7th/cmp-cmdline'
+Plugin 'hrsh7th/nvim-cmp'
+
+Plugin 'SirVer/ultisnips'
+Plugin 'quangnguyen30192/cmp-nvim-ultisnips'
+
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 
