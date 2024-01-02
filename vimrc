@@ -47,6 +47,9 @@ Plugin 'hrsh7th/nvim-cmp'
 Plugin 'SirVer/ultisnips'
 Plugin 'quangnguyen30192/cmp-nvim-ultisnips'
 
+" Fast navigation
+Plugin 'smoka7/hop.nvim'
+
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 
